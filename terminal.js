@@ -1,42 +1,40 @@
 const input = document.getElementById("commandInput");
 const output = document.getElementById("outputText");
 
-function print(text) {
-  output.textContent = text;
-}
-
 input.addEventListener("keydown", async (e) => {
   if (e.key !== "Enter") return;
 
-  const raw = input.value.trim();
+  const command = input.value.trim();
   input.value = "";
 
-  if (!raw) return;
+  if (!command) return;
 
-  const parts = raw.toLowerCase().split(" ");
+  // Split command
+  const parts = command.split(" ");
 
-  // EXPECTED: log (type) (name)
-  if (parts[0] !== "log" || parts.length < 3) {
-    print(`ERROR: INVALID COMMAND FORMAT\nEXPECTED: LOG (TYPE) (NAME)`);
+  // Expect: log <type> <thing>
+  if (parts[0].toLowerCase() !== "log" || parts.length < 3) {
+    output.textContent =
+      "ERROR: INVALID COMMAND\nUSAGE: log <type> <thing>";
     return;
   }
 
   const type = parts[1];
-  const name = parts.slice(2).join("_"); // allows multi-word names if needed
+  const thing = parts.slice(2).join(" ");
 
-  const path = `main/log/${type}/${name}.txt`;
+  const path = `main/log/${type}/${thing}.txt`;
 
   try {
-    const res = await fetch(path);
+    const response = await fetch(path);
 
-    if (!res.ok) {
-      throw new Error("NOT_FOUND");
+    if (!response.ok) {
+      throw new Error("NOT FOUND");
     }
 
-    const text = await res.text();
-    print(text.trim());
-
+    const text = await response.text();
+    output.textContent = text;
   } catch (err) {
-    print(`ERROR: FILE UNAVAILABLE OR NONEXISTENT`);
+    output.textContent =
+      `ERROR: LOG NOT FOUND\nPATH: ${path}`;
   }
 });
