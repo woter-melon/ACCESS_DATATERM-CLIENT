@@ -1,76 +1,74 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("terminal.js loaded");
 
-  
   const input = document.getElementById("commandInput");
   const output = document.getElementById("outputText");
 
-  const beep = new Audio("assets/click.mp3");
-    beep.volume = 0.2;
-
-  beep.preload = "auto";
-
-  
-  let audioUnlocked = false;
-
-  function unlockAudio() {
-    if (audioUnlocked) return;
-  
-    beep.play()
-      .then(() => {
-        beep.pause();
-        beep.currentTime = 0;
-        audioUnlocked = true;
-        console.log("Audio unlocked");
-      })
-      .catch(() => {});
-  }
-
-
-  input.addEventListener("keydown", async (e) => {
-  unlockAudio();
-
-  if (e.key !== "Enter") return;
-
-  
   if (!input || !output) {
     console.error("Terminal elements not found");
     return;
   }
 
-  function typePrint(text, speed = 20) {
+  /* ---------------- AUDIO ---------------- */
+
+  let audioCtx = null;
+
+  function clickSound() {
+    if (!audioCtx) return;
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = "square";
+    osc.frequency.value = 1200;
+
+    gain.gain.value = 0.03;
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.015);
+  }
+
+  function unlockAudio() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      console.log("AudioContext unlocked");
+    }
+  }
+
+  /* ---------------- TYPE PRINT ---------------- */
+
+  function typePrint(text, speed = 7) {
     output.textContent = "";
     let i = 0;
-  
+
     const interval = setInterval(() => {
       output.textContent += text[i];
-  
-      // Play beep every few characters to avoid noise hell
+
       if (i % 3 === 0) {
-        beep.currentTime = 0;
-        beep.play().catch(() => {});
+        clickSound();
       }
-  
+
       i++;
-  
-      if (i >= text.length) {
-        clearInterval(interval);
-      }
+      if (i >= text.length) clearInterval(interval);
     }, speed);
   }
 
+  /* ---------------- INPUT ---------------- */
 
   input.addEventListener("keydown", async (e) => {
+    unlockAudio();
+
     if (e.key !== "Enter") return;
 
     const raw = input.value.trim();
     input.value = "";
-
     if (!raw) return;
 
     const parts = raw.split(" ");
 
-    // Expect: log <type> <thing>
     if (parts[0].toLowerCase() !== "log" || parts.length < 3) {
       typePrint(
         "ERROR: INVALID COMMAND\nUSAGE: log <item|event|agent|other> <id>"
@@ -94,18 +92,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch(path);
-
-      if (!response.ok) {
-        throw new Error("NOT FOUND");
-      }
+      if (!response.ok) throw new Error("NOT FOUND");
 
       const text = await response.text();
       typePrint(text);
-    } catch (err) {
-      console.error(err);
-      typePrint(
-        `ERROR: LOG NOT FOUND\nPATH: ${path}`
-      );
+    } catch {
+      typePrint(`ERROR: LOG NOT FOUND\nPATH: ${path}`);
     }
   });
 });
