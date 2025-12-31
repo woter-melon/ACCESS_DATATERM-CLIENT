@@ -1,3 +1,18 @@
+function typePrint(text, speed = 20) {
+  output.textContent = "";
+  let i = 0;
+
+  const interval = setInterval(() => {
+    output.textContent += text[i];
+    i++;
+
+    if (i >= text.length) {
+      clearInterval(interval);
+    }
+  }, speed);
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
   console.log("terminal.js loaded");
 
@@ -21,8 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Expect: log <type> <thing>
     if (parts[0].toLowerCase() !== "log" || parts.length < 3) {
-      output.textContent =
-        "ERROR: INVALID COMMAND\nUSAGE: log <item|event|agent|other> <id>";
+      typePrint("ERROR: INVALID COMMAND\nUSAGE: log <item|event|agent|other> <id>", 18);
       return;
     }
 
@@ -31,8 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const allowed = ["item", "event", "agent", "other"];
     if (!allowed.includes(type)) {
-      output.textContent =
-        `ERROR: UNKNOWN LOG TYPE\nVALID TYPES: ${allowed.join(", ")}`;
+      typePrint(`ERROR: UNKNOWN LOG TYPE\nVALID TYPES: ${allowed.join(", ")}`, 18);
       return;
     }
 
@@ -46,10 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const text = await response.text();
-      output.textContent = text;
+      typePrint(text, 18);
     } catch {
-      output.textContent =
-        `ERROR: LOG NOT FOUND\nPATH: ${path}`;
+      typePrint(`ERROR: LOG NOT FOUND\nPATH: ${path}`, 18);
     }
   });
 });
