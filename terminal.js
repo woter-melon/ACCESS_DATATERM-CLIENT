@@ -18,13 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
     crt.preload = "auto";
   
   let crtPlayed = false;
-
-  if (!crtPlayed) {
-    crt.currentTime = 0;
-    crt.play().catch(() => {});
-    crtPlayed = true;
-  }
-
   
   function clickSound() {
     if (!audioCtx) return;
@@ -74,6 +67,12 @@ document.addEventListener("DOMContentLoaded", () => {
   input.addEventListener("keydown", async (e) => {
     unlockAudio();
 
+    if (!crtPlayed) {
+      crt.currentTime = 0;
+      crt.play().catch(() => {});
+      crtPlayed = true;
+    }
+    
     if (e.key !== "Enter") return;
 
     const raw = input.value.trim();
