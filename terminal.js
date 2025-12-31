@@ -112,7 +112,6 @@ input.addEventListener("keydown", (event) => {
    INITIAL MESSAGE
    ========================= */
 
-print(`
-ACCESS_DATATERM ONLINE.
+print(`ACCESS_DATATERM ONLINE.
 TYPE HELP FOR AVAILABLE COMMANDS.
 `);
