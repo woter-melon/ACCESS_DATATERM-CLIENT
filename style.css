@@ -10,7 +10,7 @@ body {
   background: black;
   color: white;
   font-family: "IBM Plex Mono", monospace;
-  font-weight: 700; /* REAL BOLD */
+  font-weight: 600;
   height: 100vh;
   overflow: hidden;
 }
@@ -37,12 +37,10 @@ body {
 
 #title {
   font-size: 1.6rem;
-  font-weight: 700;
 }
 
 #subtitle {
   font-size: 0.95rem;
-  font-weight: 700;
 }
 
 /* TERMINAL INPUT */
@@ -60,7 +58,7 @@ body {
   border: none;
   outline: none;
   font-family: inherit;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1rem;
 }
 
@@ -69,6 +67,14 @@ body {
   width: 50%;
   padding-left: 16px;
   padding-right: 16px;
+  padding-top: calc(50vh + 12px);
+  overflow-y: auto;
+  white-space: pre-wrap;
+  color: white;
+}
 
-  /* START NEAR CENTER, NOT BELOW IT */
-  padding-top: c
+#outputText {
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 1rem;
+}
