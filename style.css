@@ -47,3 +47,19 @@ body {
   font-size: 14px;
   width: 320px;
 }
+
+/* OUTPUT AREA (RIGHT HALF) */
+#outputText {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  width: calc(50vw - 32px);
+  height: calc(100vh - 32px);
+
+  white-space: pre-wrap;
+  overflow-y: auto;
+
+  font-family: "Special Elite", monospace;
+  font-size: 14px;
+}
