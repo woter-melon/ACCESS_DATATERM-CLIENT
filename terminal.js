@@ -1,27 +1,39 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("terminal.js loaded");
 
+  
   const input = document.getElementById("commandInput");
   const output = document.getElementById("outputText");
+
+  const beep = new Audio("assets/beep.mp3");
+    beep.volume = 0.2;
 
   if (!input || !output) {
     console.error("Terminal elements not found");
     return;
   }
 
-  function typePrint(text, speed = 4) {
+  function typePrint(text, speed = 20) {
     output.textContent = "";
     let i = 0;
-
+  
     const interval = setInterval(() => {
-      output.textContent += text.charAt(i);
+      output.textContent += text[i];
+  
+      // Play beep every few characters to avoid noise hell
+      if (i % 3 === 0) {
+        beep.currentTime = 0;
+        beep.play().catch(() => {});
+      }
+  
       i++;
-
+  
       if (i >= text.length) {
         clearInterval(interval);
       }
     }, speed);
   }
+
 
   input.addEventListener("keydown", async (e) => {
     if (e.key !== "Enter") return;
