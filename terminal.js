@@ -9,13 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  /* ---------------- AUDIO ---------------- */
+   /* ---------------- AUDIO ---------------- */
 
   let audioCtx = null;
-
+  
   const crt = new Audio("assets/CRT.mp3");
-    crt.volume = 0.5;
-    crt.preload = "auto";
+  crt.volume = 0.5;
+  crt.preload = "auto";
   
   let crtPlayed = false;
   
@@ -24,25 +24,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
-
+  
     osc.type = "square";
     osc.frequency.value = 1200;
-
+  
     gain.gain.value = 0.03;
-
+  
     osc.connect(gain);
     gain.connect(audioCtx.destination);
-
+  
     osc.start();
     osc.stop(audioCtx.currentTime + 0.015);
   }
-
+  
   function unlockAudio() {
     if (!audioCtx) {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       console.log("AudioContext unlocked");
     }
   }
+
+    /* ---------- FIRST USER INTERACTION TO PLAY CRT ---------- */
+  function firstUserInteraction() {
+    unlockAudio();
+  
+    // Resume AudioContext if suspended
+    if (audioCtx.state === "suspended") {
+      audioCtx.resume();
+    }
+  
+    // Play CRT sound once
+    if (!crtPlayed) {
+      crt.currentTime = 0;
+      crt.play().catch(() => {});
+      crtPlayed = true;
+      console.log("CRT played");
+    }
+  
+    // Remove listener so this only triggers once
+    window.removeEventListener("pointerdown", firstUserInteraction);
+  }
+  
+  // Listen for first click / tap anywhere
+  window.addEventListener("pointerdown", firstUserInteraction);
+
 
   /* ---------------- TYPE PRINT ---------------- */
 
@@ -66,12 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   input.addEventListener("keydown", async (e) => {
     unlockAudio();
-
-    if (!crtPlayed) {
-      crt.currentTime = 0;
-      crt.play().catch(() => {});
-      crtPlayed = true;
-    }
     
     if (e.key !== "Enter") return;
 
