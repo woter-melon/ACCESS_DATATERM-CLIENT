@@ -1,4 +1,4 @@
-function typePrint(text, speed = 20) {
+function typePrint(output, text, speed = 20) {
   output.textContent = "";
   let i = 0;
 
@@ -11,6 +11,7 @@ function typePrint(text, speed = 20) {
     }
   }, speed);
 }
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
