@@ -4,47 +4,69 @@ document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("commandInput");
   const output = document.getElementById("outputText");
 
-
-
-  const overlay = document.getElementById('overlay');
-const video = document.getElementById('intro-video');
-const bootNote = document.getElementById('boot-note');
-const startBtn = document.getElementById('start-btn');
-
-startBtn.addEventListener('click', () => {
-    startBtn.style.display = 'none';    // hide button
-    overlay.style.cursor = 'default';   // optional: remove pointer
-
-    // Play boot note first (optional)
-    if (bootNote) bootNote.play();
-
-    // Show and play video
-    video.style.display = 'block';
-    video.play();
-
-    // When video ends, fade out overlay and video
-    video.addEventListener('ended', () => {
-        overlay.style.transition = 'opacity 1s';
-        video.style.transition = 'opacity 1s';
-        overlay.style.opacity = 0;
-        video.style.opacity = 0;
-
-        setTimeout(() => {
-            overlay.style.display = 'none';
-            video.style.display = 'none';
-        }, 1000); // fade duration
-    });
-});
-
-  
-
-  
-
   if (!input || !output) {
     console.error("Terminal elements not found");
     return;
   }
+
+   /* ---------------- AUDIO ---------------- */
+
+  let audioCtx = null;
   
+  const crt = new Audio("assets/CRT.mp3");
+  crt.volume = 0.5;
+  crt.preload = "auto";
+  
+  let crtPlayed = false;
+  
+  function clickSound() {
+    if (!audioCtx) return;
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+  
+    osc.type = "square";
+    osc.frequency.value = 1200;
+  
+    gain.gain.value = 0.03;
+  
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+  
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.015);
+  }
+  
+  function unlockAudio() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      console.log("AudioContext unlocked");
+    }
+  }
+
+    /* ---------- FIRST USER INTERACTION TO PLAY CRT ---------- */
+  function firstUserInteraction() {
+    unlockAudio();
+  
+    // Resume AudioContext if suspended
+    if (audioCtx.state === "suspended") {
+      audioCtx.resume();
+    }
+  
+    // Play CRT sound once
+    if (!crtPlayed) {
+      crt.currentTime = 0;
+      crt.play().catch(() => {});
+      crtPlayed = true;
+      console.log("CRT played");
+    }
+  
+    // Remove listener so this only triggers once
+    window.removeEventListener("pointerdown", firstUserInteraction);
+  }
+  
+  // Listen for first click / tap anywhere
+  window.addEventListener("pointerdown", firstUserInteraction);
 
 
   /* ---------------- TYPE PRINT ---------------- */
