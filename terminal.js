@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  function typePrint(text, speed = 6) {
+  function typePrint(text, speed = 4) {
     output.textContent = "";
     let i = 0;
 
