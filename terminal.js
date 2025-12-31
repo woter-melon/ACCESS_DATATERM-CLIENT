@@ -13,6 +13,29 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  let audioUnlocked = false;
+
+function unlockAudio() {
+  if (audioUnlocked) return;
+
+  beep.play()
+    .then(() => {
+      beep.pause();
+      beep.currentTime = 0;
+      audioUnlocked = true;
+      console.log("Audio unlocked");
+    })
+    .catch(() => {});
+}
+
+  input.addEventListener("keydown", async (e) => {
+    unlockAudio();
+  
+    if (e.key !== "Enter") return;
+    ...
+  });
+
+  
   function typePrint(text, speed = 20) {
     output.textContent = "";
     let i = 0;
