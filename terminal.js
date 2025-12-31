@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let i = 0;
 
     const interval = setInterval(() => {
-      output.textContent += text[i] ?? "";
+      output.textContent += text.charAt(i);
       i++;
 
       if (i >= text.length) {
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const parts = raw.split(" ");
 
-    // Expected: log <type> <thing>
+    // Expect: log <type> <thing>
     if (parts[0].toLowerCase() !== "log" || parts.length < 3) {
       typePrint(
         "ERROR: INVALID COMMAND\nUSAGE: log <item|event|agent|other> <id>"
