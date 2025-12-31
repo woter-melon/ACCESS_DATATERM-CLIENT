@@ -3,30 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <title>ACCESS_DATATERM</title>
+  <style>
+    /* Full-screen black overlay */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
 
-  <!-- Old terminal / typewriter font -->
-  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css">
+    /* Video styling */
+    #intro-video {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10000;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- TITLE / HEADER -->
-  <div id="header">
-    <div id="title">ACCESS_DATATERM</div>
-    <div id="subtitle">AVAILABLE COMMANDS: HELP, STATUS, LOG_ENTRY_ITEM</div>
+  <!-- Overlay -->
+  <div id="overlay">
+    <video id="intro-video" width="640" height="360">
+      <source src="asset/DATATERM_OS_BOOT.mp4" type="video/mp4">
+    </video>
   </div>
 
-  <!-- INPUT (BOTTOM LEFT) -->
-  <div id="terminal">
-    <input id="commandInput" type="text" autocomplete="off">
-  </div>
+  <script>
+    const overlay = document.getElementById('overlay');
+    const video = document.getElementById('intro-video');
 
-  <!-- Thing to actually display the output -->
-  <pre id="outputText"></pre>
-  <script src="terminal.js"></script>
+    // Play video on any input (click, key, touch)
+    function startVideo() {
+      overlay.removeEventListener('click', startVideo);
+      overlay.removeEventListener('keydown', startVideo);
+      overlay.removeEventListener('touchstart', startVideo);
 
+      video.style.display = 'block';
+      video.play();
+
+      // When video ends, wait 1s then remove overlay & video
+      video.addEventListener('ended', () => {
+        setTimeout(() => {
+          overlay.style.display = 'none';
+          video.style.display = 'none';
+        }, 1000);
+      });
+    }
+
+    overlay.addEventListener('click', startVideo);
+    overlay.addEventListener('keydown', startVideo);
+    overlay.addEventListener('touchstart', startVideo);
+  </script>
 
 </body>
 </html>
