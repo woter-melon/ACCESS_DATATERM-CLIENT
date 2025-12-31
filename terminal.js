@@ -8,6 +8,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const beep = new Audio("assets/click.mp3");
     beep.volume = 0.2;
 
+  beep.preload = "auto";
+
+  
+  let audioUnlocked = false;
+
+  function unlockAudio() {
+    if (audioUnlocked) return;
+  
+    beep.play()
+      .then(() => {
+        beep.pause();
+        beep.currentTime = 0;
+        audioUnlocked = true;
+        console.log("Audio unlocked");
+      })
+      .catch(() => {});
+  }
+
+
+  input.addEventListener("keydown", async (e) => {
+  unlockAudio();
+
+  if (e.key !== "Enter") return;
+
+  
   if (!input || !output) {
     console.error("Terminal elements not found");
     return;
