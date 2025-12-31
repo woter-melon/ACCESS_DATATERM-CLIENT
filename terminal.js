@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------------- AUDIO ---------------- */
   let audioCtx = null;
-
   const crt = new Audio("assets/CRT.mp3");
   crt.volume = 0.5;
   crt.preload = "auto";
@@ -35,31 +34,45 @@ document.addEventListener("DOMContentLoaded", () => {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       console.log("AudioContext unlocked");
     }
+    if (audioCtx.state === "suspended") {
+      audioCtx.resume();
+    }
   }
 
+  // Play CRT once on first click/tap
+  function firstUserInteraction() {
+    unlockAudio();
+    if (!crtPlayed) {
+      crt.currentTime = 0;
+      crt.play().catch(() => {});
+      crtPlayed = true;
+      console.log("CRT played");
+    }
+    window.removeEventListener("pointerdown", firstUserInteraction);
+  }
+  window.addEventListener("pointerdown", firstUserInteraction);
+
   /* ---------------- TYPE PRINT ---------------- */
+  let typingInterval = null;
+
   function typePrint(text, speed = 7) {
+    if (typingInterval) clearInterval(typingInterval);
     output.textContent = "";
     let i = 0;
-    const interval = setInterval(() => {
+
+    typingInterval = setInterval(() => {
       output.textContent += text[i];
       if (i % 3 === 0) clickSound();
       i++;
-      if (i >= text.length) clearInterval(interval);
+      if (i >= text.length) clearInterval(typingInterval);
     }, speed);
   }
 
   /* ---------------- INPUT ---------------- */
   input.addEventListener("keydown", async (e) => {
-    unlockAudio();
-
-    if (!crtPlayed) {
-      crt.currentTime = 0;
-      crt.play().catch(() => {});
-      crtPlayed = true;
-    }
-
     if (e.key !== "Enter") return;
+
+    unlockAudio();
 
     const raw = input.value.trim();
     input.value = "";
@@ -101,7 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const type = parts[1].toLowerCase();
     const thing = parts.slice(2).join(" ");
     const allowed = ["item", "event", "agent", "other"];
-
     if (!allowed.includes(type)) {
       typePrint(
         `ERROR: UNKNOWN LOG TYPE\nVALID TYPES: ${allowed.join(", ")}`,
