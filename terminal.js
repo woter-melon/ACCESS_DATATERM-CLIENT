@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("commandInput");
   const output = document.getElementById("outputText");
 
-  const beep = new Audio("assets/beep.mp3");
+  const beep = new Audio("assets/click.mp3");
     beep.volume = 0.2;
 
   if (!input || !output) {
@@ -13,29 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  let audioUnlocked = false;
-
-function unlockAudio() {
-  if (audioUnlocked) return;
-
-  beep.play()
-    .then(() => {
-      beep.pause();
-      beep.currentTime = 0;
-      audioUnlocked = true;
-      console.log("Audio unlocked");
-    })
-    .catch(() => {});
-}
-
-  input.addEventListener("keydown", async (e) => {
-    unlockAudio();
-  
-    if (e.key !== "Enter") return;
-    ...
-  });
-
-  
   function typePrint(text, speed = 20) {
     output.textContent = "";
     let i = 0;
