@@ -1,49 +1,55 @@
-console.log("terminal.js loaded");
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("terminal.js loaded");
 
-const input = document.getElementById("commandInput");
-const output = document.getElementById("outputText");
+  const input = document.getElementById("commandInput");
+  const output = document.getElementById("outputText");
 
-input.addEventListener("keydown", async (e) => {
-  if (e.key !== "Enter") return;
-
-  const raw = input.value.trim();
-  input.value = "";
-
-  if (!raw) return;
-
-  const parts = raw.split(" ");
-
-  // Expect: log <type> <thing>
-  if (parts[0].toLowerCase() !== "log" || parts.length < 3) {
-    output.textContent =
-      "ERROR: INVALID COMMAND\nUSAGE: log <item|event|agent|other> <id>";
+  if (!input || !output) {
+    console.error("Terminal elements not found");
     return;
   }
 
-  const type = parts[1].toLowerCase();
-  const thing = parts.slice(2).join(" ");
+  input.addEventListener("keydown", async (e) => {
+    if (e.key !== "Enter") return;
 
-  // Allowed types (singular, as requested)
-  const allowed = ["item", "event", "agent", "other"];
-  if (!allowed.includes(type)) {
-    output.textContent =
-      `ERROR: UNKNOWN LOG TYPE\nVALID TYPES: ${allowed.join(", ")}`;
-    return;
-  }
+    const raw = input.value.trim();
+    input.value = "";
 
-  const path = `main/log/${type}/${thing}.txt`;
+    if (!raw) return;
 
-  try {
-    const response = await fetch(path);
+    const parts = raw.split(" ");
 
-    if (!response.ok) {
-      throw new Error("NOT FOUND");
+    // Expect: log <type> <thing>
+    if (parts[0].toLowerCase() !== "log" || parts.length < 3) {
+      output.textContent =
+        "ERROR: INVALID COMMAND\nUSAGE: log <item|event|agent|other> <id>";
+      return;
     }
 
-    const text = await response.text();
-    output.textContent = text;
-  } catch {
-    output.textContent =
-      `ERROR: LOG NOT FOUND\nPATH: ${path}`;
-  }
+    const type = parts[1].toLowerCase();
+    const thing = parts.slice(2).join(" ");
+
+    const allowed = ["item", "event", "agent", "other"];
+    if (!allowed.includes(type)) {
+      output.textContent =
+        `ERROR: UNKNOWN LOG TYPE\nVALID TYPES: ${allowed.join(", ")}`;
+      return;
+    }
+
+    const path = `main/log/${type}/${thing}.txt`;
+
+    try {
+      const response = await fetch(path);
+
+      if (!response.ok) {
+        throw new Error("NOT FOUND");
+      }
+
+      const text = await response.text();
+      output.textContent = text;
+    } catch {
+      output.textContent =
+        `ERROR: LOG NOT FOUND\nPATH: ${path}`;
+    }
+  });
 });
