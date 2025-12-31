@@ -4,32 +4,24 @@
   <meta charset="UTF-8">
   <title>ACCESS_DATATERM</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Monospace font -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div id="container">
-
-    <!-- LEFT HALF -->
-    <div id="left">
-      <div id="header">
-        <div id="title">ACCESS_DATATERM</div>
-        <div id="subtitle">AVAILABLE COMMANDS: HELP, STATUS, LOG_ENTRY_ITEM</div>
-      </div>
-
-      <div id="terminal">
-        <input id="commandInput" type="text" autocomplete="off">
-      </div>
-    </div>
-
-    <!-- RIGHT HALF -->
-    <div id="right">
-      <pre id="outputText"></pre>
-    </div>
-
+  <!-- TITLE / HEADER -->
+  <div id="header">
+    <div id="title">ACCESS_DATATERM</div>
+    <div id="subtitle">AVAILABLE COMMANDS: HELP, STATUS, LOG_ENTRY_ITEM</div>
   </div>
 
-  <script src="terminal.js"></script>
+  <!-- INPUT (BOTTOM LEFT) -->
+  <div id="terminal">
+    <input id="commandInput" type="text" autocomplete="off">
+  </div>
+
 </body>
 </html>
