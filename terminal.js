@@ -1,19 +1,3 @@
-function typePrint(output, text, speed = 20) {
-  output.textContent = "";
-  let i = 0;
-
-  const interval = setInterval(() => {
-    output.textContent += text[i];
-    i++;
-
-    if (i >= text.length) {
-      clearInterval(interval);
-    }
-  }, speed);
-}
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
   console.log("terminal.js loaded");
 
@@ -23,6 +7,20 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!input || !output) {
     console.error("Terminal elements not found");
     return;
+  }
+
+  function typePrint(text, speed = 18) {
+    output.textContent = "";
+    let i = 0;
+
+    const interval = setInterval(() => {
+      output.textContent += text[i] ?? "";
+      i++;
+
+      if (i >= text.length) {
+        clearInterval(interval);
+      }
+    }, speed);
   }
 
   input.addEventListener("keydown", async (e) => {
@@ -35,9 +33,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const parts = raw.split(" ");
 
-    // Expect: log <type> <thing>
+    // Expected: log <type> <thing>
     if (parts[0].toLowerCase() !== "log" || parts.length < 3) {
-      typePrint("ERROR: INVALID COMMAND\nUSAGE: log <item|event|agent|other> <id>", 18);
+      typePrint(
+        "ERROR: INVALID COMMAND\nUSAGE: log <item|event|agent|other> <id>"
+      );
       return;
     }
 
@@ -46,11 +46,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const allowed = ["item", "event", "agent", "other"];
     if (!allowed.includes(type)) {
-      typePrint(`ERROR: UNKNOWN LOG TYPE\nVALID TYPES: ${allowed.join(", ")}`, 18);
+      typePrint(
+        `ERROR: UNKNOWN LOG TYPE\nVALID TYPES: ${allowed.join(", ")}`
+      );
       return;
     }
 
     const path = `log/${type}/${thing}.txt`;
+    console.log("Fetching:", path);
 
     try {
       const response = await fetch(path);
@@ -60,9 +63,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const text = await response.text();
-      typePrint(text, 18);
-    } catch {
-      typePrint(`ERROR: LOG NOT FOUND\nPATH: ${path}`, 18);
+      typePrint(text);
+    } catch (err) {
+      console.error(err);
+      typePrint(
+        `ERROR: LOG NOT FOUND\nPATH: ${path}`
+      );
     }
   });
 });
