@@ -90,22 +90,59 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ---------------- INPUT ---------------- */
 
   input.addEventListener("keydown", async (e) => {
-    unlockAudio();
-    
-    if (e.key !== "Enter") return;
+  if (e.key !== "Enter") return;
 
-    const raw = input.value.trim();
-    input.value = "";
-    if (!raw) return;
+  const raw = input.value.trim();
+  input.value = "";
+  if (!raw) return;
 
-    const parts = raw.split(" ");
+  const parts = raw.split(" ");
+  const command = parts[0].toLowerCase();
 
-    if (parts[0].toLowerCase() !== "log" || parts.length < 3) {
-      typePrint(
-        "ERROR: INVALID COMMAND\nUSAGE: log <item|event|agent|other> <id>"
-      );
-      return;
-    }
+  // ---- BUILT-IN COMMANDS ----
+  if (command === "help") {
+    typePrint("Why am I putting this one in? Gabriel knows all the commands anyway. Note: maybe delete later.", 7);
+    return;
+  }
+
+  if (command === "status") {
+    typePrint(
+      "TERMINAL STATUS:\n" +
+      "BATTERY: 2%. Charging...\n" +
+      "FILE INTEGRITY: Critical. Hope I'm not reading this without a backup, or I'm gonna get a lecture.\n\n" +
+      "CONNECTION STATUS:\n" +
+      "Stable. 518 Kbps.", 7
+    );
+    return;
+  }
+
+  // ---- LOG COMMANDS ----
+  if (command !== "log" || parts.length < 3) {
+    typePrint("ERROR: INVALID COMMAND\nUSAGE: log <item|event|agent|other> <id>", 7);
+    return;
+  }
+
+  const type = parts[1].toLowerCase();
+  const thing = parts.slice(2).join(" ");
+
+  const allowed = ["item", "event", "agent", "other"];
+  if (!allowed.includes(type)) {
+    typePrint(`ERROR: UNKNOWN LOG TYPE\nVALID TYPES: ${allowed.join(", ")}`, 7);
+    return;
+  }
+
+  const path = `log/${type}/${thing}.txt`;
+  console.log("Fetching:", path);
+
+  try {
+    const response = await fetch(path);
+    if (!response.ok) throw new Error("NOT FOUND");
+    const text = await response.text();
+    typePrint(text, 7);
+  } catch {
+    typePrint(`ERROR: LOG NOT FOUND\nPATH: ${path}`, 7);
+  }
+});
 
     const type = parts[1].toLowerCase();
     const thing = parts.slice(2).join(" ");
