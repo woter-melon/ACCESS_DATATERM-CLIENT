@@ -4,44 +4,32 @@
   <meta charset="UTF-8">
   <title>ACCESS_DATATERM</title>
 
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div id="container">
 
-    <!-- TOP LEFT -->
-    <div id="header">
-      <div id="title">ACCESS_DATATERM</div>
-      <div id="subtitle">
-        AVAILABLE COMMANDS: HELP, STATUS, LOG_ENTRY_ITEM
+    <!-- LEFT HALF -->
+    <div id="left">
+      <div id="header">
+        <div id="title">ACCESS_DATATERM</div>
+        <div id="subtitle">AVAILABLE COMMANDS: HELP, STATUS, LOG_ENTRY_ITEM</div>
+      </div>
+
+      <div id="terminal">
+        <input id="commandInput" type="text" autocomplete="off">
       </div>
     </div>
 
-    <!-- BOTTOM LEFT -->
-    <div id="terminal">
-      <input
-        id="commandInput"
-        type="text"
-        placeholder="> ENTER COMMAND"
-        autocomplete="off"
-      >
-    </div>
-
     <!-- RIGHT HALF -->
-    <div id="output">
-      <pre id="outputText">
-INITIALIZING DATA TERMINAL...
-      </pre>
+    <div id="right">
+      <pre id="outputText"></pre>
     </div>
 
   </div>
 
-  <!-- Logic LAST -->
-  <script src="script.js"></script>
+  <script src="terminal.js"></script>
 </body>
 </html>
