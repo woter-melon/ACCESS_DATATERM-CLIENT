@@ -4,23 +4,30 @@ const output = document.getElementById("outputText");
 input.addEventListener("keydown", async (e) => {
   if (e.key !== "Enter") return;
 
-  const command = input.value.trim();
+  const raw = input.value.trim();
   input.value = "";
 
-  if (!command) return;
+  if (!raw) return;
 
-  // Split command
-  const parts = command.split(" ");
+  const parts = raw.split(" ");
 
   // Expect: log <type> <thing>
   if (parts[0].toLowerCase() !== "log" || parts.length < 3) {
     output.textContent =
-      "ERROR: INVALID COMMAND\nUSAGE: log <type> <thing>";
+      "ERROR: INVALID COMMAND\nUSAGE: log <item|event|agent|other> <id>";
     return;
   }
 
-  const type = parts[1];
+  const type = parts[1].toLowerCase();
   const thing = parts.slice(2).join(" ");
+
+  // Allowed types (singular, as requested)
+  const allowed = ["item", "event", "agent", "other"];
+  if (!allowed.includes(type)) {
+    output.textContent =
+      `ERROR: UNKNOWN LOG TYPE\nVALID TYPES: ${allowed.join(", ")}`;
+    return;
+  }
 
   const path = `main/log/${type}/${thing}.txt`;
 
@@ -33,7 +40,7 @@ input.addEventListener("keydown", async (e) => {
 
     const text = await response.text();
     output.textContent = text;
-  } catch (err) {
+  } catch {
     output.textContent =
       `ERROR: LOG NOT FOUND\nPATH: ${path}`;
   }
