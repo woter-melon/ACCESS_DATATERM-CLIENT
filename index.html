@@ -3,14 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>ACCESS_DATATERM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
   <style>
-    /* Full-screen black overlay */
+    body {
+      margin: 0;
+      background: black; /* ensures terminal shows on black background */
+      color: #00ff00;
+      font-family: 'Special Elite', monospace;
+    }
+
     #overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: black;
       display: flex;
       justify-content: center;
@@ -18,52 +23,49 @@
       z-index: 9999;
     }
 
-    /* Video styling */
     #intro-video {
       display: none;
       position: fixed;
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       z-index: 10000;
+    }
+
+    /* Terminal elements */
+    #terminal {
+      position: relative; /* sits below overlay */
+      z-index: 1;
+      padding: 1rem;
+    }
+
+    #outputText {
+      white-space: pre-wrap;
+    }
+
+    #commandInput {
+      background: black;
+      color: #00ff00;
+      border: none;
+      font-family: 'Special Elite', monospace;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- Overlay -->
+  <!-- Overlay & video -->
   <div id="overlay">
     <video id="intro-video" width="640" height="360">
       <source src="assets/DATATERM_OS_BOOT.mp4" type="video/mp4">
     </video>
   </div>
 
-  <script>
-    const overlay = document.getElementById('overlay');
-    const video = document.getElementById('intro-video');
+  <!-- Terminal elements behind overlay -->
+  <div id="terminal">
+    <input id="commandInput" type="text" autocomplete="off">
+  </div>
+  <pre id="outputText"></pre>
 
-    // Play video on any input (click, key, touch)
-    function startVideo() {
-      overlay.removeEventListener('click', startVideo);
-      overlay.removeEventListener('keydown', startVideo);
-      overlay.removeEventListener('touchstart', startVideo);
-
-      video.style.display = 'block';
-      video.play();
-
-      // When video ends, wait 1s then remove overlay & video
-      video.addEventListener('ended', () => {
-        setTimeout(() => {
-          overlay.style.display = 'none';
-          video.style.display = 'none';
-        }, 1000);
-      });
-    }
-
-    overlay.addEventListener('click', startVideo);
-    overlay.addEventListener('keydown', startVideo);
-    overlay.addEventListener('touchstart', startVideo);
-  </script>
-
+  <script src="terminal.js"></script>
 </body>
 </html>
