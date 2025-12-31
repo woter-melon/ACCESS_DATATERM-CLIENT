@@ -2,42 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CORPSE DATA TERMINAL</title>
+  <title>ACCESS_DATATERM</title>
+
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="container">
+  <div id="container">
 
-  <!-- TOP LEFT -->
-  <div id="header">
-    <h1>ACCESS_DATATERM-CLIENT</h1>
-    <p>
-      PARTIAL CORPSE DATA RECONSTRUCTION NODE.<br>
-      UNAUTHORIZED ACCESS IS LOGGED.
-    </p>
+    <!-- TOP LEFT -->
+    <div id="header">
+      <div id="title">ACCESS_DATATERM</div>
+      <div id="subtitle">
+        AVAILABLE COMMANDS: HELP, STATUS, LOG_ENTRY_ITEM
+      </div>
+    </div>
+
+    <!-- BOTTOM LEFT -->
+    <div id="terminal">
+      <input
+        id="commandInput"
+        type="text"
+        placeholder="> ENTER COMMAND"
+        autocomplete="off"
+      >
+    </div>
+
+    <!-- RIGHT HALF -->
+    <div id="output">
+      <pre id="outputText">
+INITIALIZING DATA TERMINAL...
+      </pre>
+    </div>
+
   </div>
 
-  <!-- BOTTOM LEFT -->
-  <div id="terminal">
-    <input
-      type="text"
-      id="commandInput"
-      placeholder="ENTER COMMAND..."
-      autocomplete="off"
-    >
-  </div>
-
-  <!-- RIGHT -->
-  <div id="output">
-    <pre id="output-text">
-CONNECTED.
-TYPE "HELP" FOR AVAILABLE COMMANDS.
-    </pre>
-  </div>
-
-</div>
-
-<script src="script.js"></script>
+  <!-- Logic LAST -->
+  <script src="script.js"></script>
 </body>
 </html>
