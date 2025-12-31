@@ -1,83 +1,118 @@
+/* =========================
+   ACCESS_DATATERM TERMINAL
+   ========================= */
+
+/* ELEMENT REFERENCES */
 const input = document.getElementById("commandInput");
-const output = document.getElementById("output-text");
+const output = document.getElementById("outputText");
 
-/* ENTRY REGISTRY */
-const entryIndex = {
-  agent: ["gabriel"],
-  item: ["ichor"],
-  other: ["rochana"]
-};
-
-/* UTIL */
+/* =========================
+   CORE PRINT FUNCTION
+   ========================= */
 function print(text) {
   output.textContent = text.trim();
 }
 
-/* COUNT ENTRIES */
-function countEntries() {
-  return Object.values(entryIndex).reduce(
-    (sum, arr) => sum + arr.length, 0
-  );
-}
+/* =========================
+   COMMAND HANDLER
+   ========================= */
+function handleCommand(rawInput) {
+  if (!rawInput) return;
 
-/* LOAD ENTRY */
-async function loadEntry(type, name) {
-  try {
-    const res = await fetch(`entries/${type}/${name}.txt`);
-    if (!res.ok) throw new Error();
-    const text = await res.text();
-    print(text);
-  } catch {
-    print(`ERROR: FILE UNAVAILABLE OR NONEXISTENT`);
+  const parts = rawInput.trim().toLowerCase().split(" ");
+
+  switch (parts[0]) {
+    case "help":
+      showHelp();
+      break;
+
+    case "status":
+      showStatus();
+      break;
+
+    case "log":
+      loadEntry(parts);
+      break;
+
+    default:
+      print(`ERROR: UNKNOWN COMMAND "${rawInput.toUpperCase()}"`);
   }
 }
 
-/* COMMAND HANDLER */
-input.addEventListener("keydown", async (e) => {
-  if (e.key !== "Enter") return;
+/* =========================
+   COMMANDS
+   ========================= */
 
-  const raw = input.value.trim();
-  input.value = "";
-
-  const args = raw.toLowerCase().split(" ");
-
-  if (args[0] === "help") {
-    print(`
+function showHelp() {
+  print(`
 AVAILABLE COMMANDS:
+
 HELP
 STATUS
 LOG <TYPE> <NAME>
 
-TYPES:
-- agent
-- item
-- other
-    `);
-    return;
-  }
+EXAMPLES:
+LOG AGENT GABRIEL
+LOG ITEM ICHOR
+`);
+}
 
-  if (args[0] === "status") {
-    print(`
-STATUS:
-INTEGRITY: STABLE
+function showStatus() {
+  print(`
+STATUS REPORT:
+
+SYSTEM INTEGRITY: STABLE
 CONNECTION: PARTIAL
-AVAILABLE ENTRIES: ${countEntries()}
-    `);
+AVAILABLE ENTRIES: 3
+SECURITY LEVEL: RESTRICTED
+`);
+}
+
+/* =========================
+   ENTRY LOADER
+   ========================= */
+
+function loadEntry(parts) {
+  if (parts.length < 3) {
+    print("ERROR: INCOMPLETE COMMAND");
     return;
   }
 
-  if (args[0] === "log") {
-    const type = args[1];
-    const name = args[2];
+  const type = parts[1];
+  const name = parts[2];
 
-    if (!entryIndex[type]?.includes(name)) {
-      print(`ERROR: FILE UNAVAILABLE OR NONEXISTENT`);
-      return;
-    }
+  const path = `entries/${type}/${name}`;
 
-    await loadEntry(type, name);
-    return;
+  fetch(path)
+    .then(response => {
+      if (!response.ok) throw new Error("Missing file");
+      return response.text();
+    })
+    .then(text => {
+      print(text);
+    })
+    .catch(() => {
+      print("ERROR: FILE UNAVAILABLE OR NONEXISTENT");
+    });
+}
+
+/* =========================
+   INPUT LISTENER
+   ========================= */
+
+input.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    const command = input.value;
+    input.value = "";
+    handleCommand(command);
   }
-
-  print(`ERROR: UNKNOWN COMMAND "${raw.toUpperCase()}"`);
 });
+
+/* =========================
+   INITIAL MESSAGE
+   ========================= */
+
+print(`
+ACCESS_DATATERM ONLINE.
+TYPE HELP FOR AVAILABLE COMMANDS.
+`);
