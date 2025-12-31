@@ -9,34 +9,27 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-   /* ---------------- AUDIO ---------------- */
-
+  /* ---------------- AUDIO ---------------- */
   let audioCtx = null;
-  
-  const crt = new Audio("assets/CRT.mp3");
-  crt.volume = 0.5;
-  crt.preload = "auto";
-  
-  let crtPlayed = false;
-  
+
   function clickSound() {
     if (!audioCtx) return;
 
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
-  
+
     osc.type = "square";
     osc.frequency.value = 1200;
-  
+
     gain.gain.value = 0.03;
-  
+
     osc.connect(gain);
     gain.connect(audioCtx.destination);
-  
+
     osc.start();
     osc.stop(audioCtx.currentTime + 0.015);
   }
-  
+
   function unlockAudio() {
     if (!audioCtx) {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -44,33 +37,43 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-    /* ---------- FIRST USER INTERACTION TO PLAY CRT ---------- */
-  function firstUserInteraction() {
-    unlockAudio();
-  
-    // Resume AudioContext if suspended
-    if (audioCtx.state === "suspended") {
-      audioCtx.resume();
-    }
-  
-    // Play CRT sound once
-    if (!crtPlayed) {
-      crt.currentTime = 0;
-      crt.play().catch(() => {});
-      crtPlayed = true;
-      console.log("CRT played");
-    }
-  
-    // Remove listener so this only triggers once
-    window.removeEventListener("pointerdown", firstUserInteraction);
-  }
-  
-  // Listen for first click / tap anywhere
-  window.addEventListener("pointerdown", firstUserInteraction);
+  /* ---------------- VIDEO OVERLAY ---------------- */
+  const overlay = document.getElementById("overlay");
+  const video = document.getElementById("intro-video");
+  let videoPlayed = false;
 
+  function playVideoOnce() {
+    if (videoPlayed) return;
+    videoPlayed = true;
+
+    unlockAudio();
+
+    video.style.display = "block";
+    video.play();
+
+    // When video ends, wait 1s and remove both overlay and video
+    video.addEventListener("ended", () => {
+      setTimeout(() => {
+        if (overlay) overlay.style.display = "none";
+        if (video) video.style.display = "none";
+      }, 1000);
+    });
+  }
+
+  // Listen for any user input to start video
+  function onFirstUserInput() {
+    playVideoOnce();
+
+    window.removeEventListener("pointerdown", onFirstUserInput);
+    window.removeEventListener("keydown", onFirstUserInput);
+    window.removeEventListener("touchstart", onFirstUserInput);
+  }
+
+  window.addEventListener("pointerdown", onFirstUserInput);
+  window.addEventListener("keydown", onFirstUserInput);
+  window.addEventListener("touchstart", onFirstUserInput);
 
   /* ---------------- TYPE PRINT ---------------- */
-
   function typePrint(text, speed = 7) {
     output.textContent = "";
     let i = 0;
@@ -78,20 +81,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const interval = setInterval(() => {
       output.textContent += text[i];
 
-      if (i % 3 === 0) {
-        clickSound();
-      }
+      // small click on every 3rd character
+      if (i % 3 === 0) clickSound();
 
       i++;
       if (i >= text.length) clearInterval(interval);
     }, speed);
   }
 
-  /* ---------------- INPUT ---------------- */
-
+  /* ---------------- INPUT HANDLING ---------------- */
   input.addEventListener("keydown", async (e) => {
     unlockAudio();
-    
+
     if (e.key !== "Enter") return;
 
     const raw = input.value.trim();
