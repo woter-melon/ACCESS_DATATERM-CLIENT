@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const path = `main/log/${type}/${thing}.txt`;
+    const path = `log/${type}/${thing}.txt`;
 
     try {
       const response = await fetch(path);
