@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>ACCESS_DATATERM</title>
-  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      background: black; /* ensures terminal shows on black background */
-      color: #00ff00;
-      font-family: 'Special Elite', monospace;
-    }
 
+  <!-- Old terminal / typewriter font -->
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Overlay sits on top of everything */
     #overlay {
       position: fixed;
       top: 0; left: 0;
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       background: black;
       display: flex;
       justify-content: center;
@@ -26,28 +27,10 @@
     #intro-video {
       display: none;
       position: fixed;
-      top: 50%; left: 50%;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
       z-index: 10000;
-    }
-
-    /* Terminal elements */
-    #terminal {
-      position: relative; /* sits below overlay */
-      z-index: 1;
-      padding: 1rem;
-    }
-
-    #outputText {
-      white-space: pre-wrap;
-    }
-
-    #commandInput {
-      background: black;
-      color: #00ff00;
-      border: none;
-      font-family: 'Special Elite', monospace;
-      font-size: 1rem;
     }
   </style>
 </head>
@@ -60,10 +43,16 @@
     </video>
   </div>
 
-  <!-- Terminal elements behind overlay -->
+  <!-- Existing page content behind overlay -->
+  <div id="header">
+    <div id="title">ACCESS_DATATERM</div>
+    <div id="subtitle">AVAILABLE COMMANDS: HELP, STATUS, LOG_ENTRY_ITEM</div>
+  </div>
+
   <div id="terminal">
     <input id="commandInput" type="text" autocomplete="off">
   </div>
+
   <pre id="outputText"></pre>
 
   <script src="terminal.js"></script>
