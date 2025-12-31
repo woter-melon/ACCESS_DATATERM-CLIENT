@@ -15,8 +15,7 @@
     #overlay {
       position: fixed;
       top: 0; left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       background: black;
       display: flex;
       justify-content: center;
@@ -32,6 +31,15 @@
       transform: translate(-50%, -50%);
       z-index: 10000;
     }
+
+    /* Input image */
+    #input-image {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10001; /* above overlay & video */
+    }
   </style>
 </head>
 <body>
@@ -42,6 +50,9 @@
       <source src="assets/DATATERM_OS_BOOT.mp4" type="video/mp4">
     </video>
   </div>
+
+  <!-- Input image -->
+  <img id="input-image" src="assets/input.png" alt="Input Prompt">
 
   <!-- Existing page content behind overlay -->
   <div id="header">
@@ -56,5 +67,18 @@
   <pre id="outputText"></pre>
 
   <script src="terminal.js"></script>
+  <script>
+    // Hide the input image on first input
+    const inputImg = document.getElementById('input-image');
+    const firstInputHandler = () => {
+      if (inputImg) inputImg.style.display = 'none';
+      window.removeEventListener('keydown', firstInputHandler);
+      window.removeEventListener('click', firstInputHandler);
+      window.removeEventListener('touchstart', firstInputHandler);
+    };
+    window.addEventListener('keydown', firstInputHandler);
+    window.addEventListener('click', firstInputHandler);
+    window.addEventListener('touchstart', firstInputHandler);
+  </script>
 </body>
 </html>
