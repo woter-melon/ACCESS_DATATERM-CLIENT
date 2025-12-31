@@ -13,6 +13,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let audioCtx = null;
 
+  const crt = new Audio("assets/CRT.mp3");
+    crt.volume = 0.5;
+    crt.preload = "auto";
+  
+  let crtPlayed = false;
+
+  if (!crtPlayed) {
+    crt.currentTime = 0;
+    crt.play().catch(() => {});
+    crtPlayed = true;
+  }
+
+  
   function clickSound() {
     if (!audioCtx) return;
 
