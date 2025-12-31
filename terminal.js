@@ -100,36 +100,58 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!raw) return;
 
     const parts = raw.split(" ");
+    const command = parts[0].toLowerCase();
 
-    if (parts[0].toLowerCase() !== "log" || parts.length < 3) {
-      typePrint(
-        "ERROR: INVALID COMMAND\nUSAGE: log <item|event|agent|other> <id>"
-      );
+    /* ------------- LOG COMMAND ------------- */
+    if (command === "log") {
+      if (parts.length < 3) {
+        typePrint("ERROR: INVALID COMMAND\nUSAGE: log <item|event|agent|other> <id>");
+        return;
+      }
+
+      const type = parts[1].toLowerCase();
+      const thing = parts.slice(2).join(" ");
+
+      const allowed = ["item", "event", "agent", "other"];
+      if (!allowed.includes(type)) {
+        typePrint(`ERROR: UNKNOWN LOG TYPE\nVALID TYPES: ${allowed.join(", ")}`);
+        return;
+      }
+
+      const path = `log/${type}/${thing}.txt`;
+      console.log("Fetching:", path);
+
+      try {
+        const response = await fetch(path);
+        if (!response.ok) throw new Error("NOT FOUND");
+
+        const text = await response.text();
+        typePrint(text);
+      } catch {
+        typePrint(`ERROR: LOG NOT FOUND\nPATH: ${path}`);
+      }
       return;
     }
 
-    const type = parts[1].toLowerCase();
-    const thing = parts.slice(2).join(" ");
-
-    const allowed = ["item", "event", "agent", "other"];
-    if (!allowed.includes(type)) {
-      typePrint(
-        `ERROR: UNKNOWN LOG TYPE\nVALID TYPES: ${allowed.join(", ")}`
-      );
+    /* ------------- HELP COMMAND ------------- */
+    if (command === "help") {
+      typePrint("Honestly why'd I even put this command here. \n" + 
+                "Note, delete later.\n\n\n\n" + 
+                "Wow, forgot this thing existed. Way to go help command. Happy 54th birthday."); // placeholder text
       return;
     }
 
-    const path = `log/${type}/${thing}.txt`;
-    console.log("Fetching:", path);
-
-    try {
-      const response = await fetch(path);
-      if (!response.ok) throw new Error("NOT FOUND");
-
-      const text = await response.text();
-      typePrint(text);
-    } catch {
-      typePrint(`ERROR: LOG NOT FOUND\nPATH: ${path}`);
+    /* ------------- STATUS COMMAND ------------- */
+    if (command === "status") {
+      typePrint("TERMINAL STATUS:\n" +
+          "BATTERY: 2%. Charging...\n" +
+          "FILE INTEGRITY: Critical. Hope I'm not reading this without a backup, or I'm gonna get a lecture.\n\n" +
+          "CONNECTION STATUS:\n" +
+          "Stable. 518 Kbps."); // placeholder text
+      return;
     }
+
+    /* ------------- UNKNOWN COMMAND ------------- */
+    typePrint("ERROR: UNKNOWN COMMAND");
   });
 });
