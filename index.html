@@ -1,26 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>ACCESS_DATATERM</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>CORPSE DATA TERMINAL</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Output Area -->
+<div id="container">
+
+  <!-- TOP LEFT -->
+  <div id="header">
+    <h1>ACCESS_DATATERM-CLIENT</h1>
+    <p>
+      PARTIAL CORPSE DATA RECONSTRUCTION NODE.<br>
+      UNAUTHORIZED ACCESS IS LOGGED.
+    </p>
+  </div>
+
+  <!-- BOTTOM LEFT -->
+  <div id="terminal">
+    <input
+      type="text"
+      id="commandInput"
+      placeholder="ENTER COMMAND..."
+      autocomplete="off"
+    >
+  </div>
+
+  <!-- RIGHT -->
   <div id="output">
     <pre id="output-text">
-> ONLINE
-> AWAITING INPUT
+CONNECTED.
+TYPE "HELP" FOR AVAILABLE COMMANDS.
     </pre>
   </div>
 
-  <!-- Terminal Input -->
-  <div id="terminal">
-    <span>&gt;</span>
-    <input type="text" id="commandInput" autocomplete="off" autofocus />
-  </div>
+</div>
 
-  <script src="terminal.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
