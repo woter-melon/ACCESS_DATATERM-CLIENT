@@ -1,3 +1,5 @@
+console.log("terminal.js loaded");
+
 const input = document.getElementById("commandInput");
 const output = document.getElementById("outputText");
 
