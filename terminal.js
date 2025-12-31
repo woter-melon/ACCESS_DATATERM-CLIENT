@@ -1,117 +1,42 @@
-/* =========================
-   ACCESS_DATATERM TERMINAL
-   ========================= */
-
-/* ELEMENT REFERENCES */
 const input = document.getElementById("commandInput");
 const output = document.getElementById("outputText");
 
-/* =========================
-   CORE PRINT FUNCTION
-   ========================= */
 function print(text) {
-  output.textContent = text.trim();
+  output.textContent = text;
 }
 
-/* =========================
-   COMMAND HANDLER
-   ========================= */
-function handleCommand(rawInput) {
-  if (!rawInput) return;
+input.addEventListener("keydown", async (e) => {
+  if (e.key !== "Enter") return;
 
-  const parts = rawInput.trim().toLowerCase().split(" ");
+  const raw = input.value.trim();
+  input.value = "";
 
-  switch (parts[0]) {
-    case "help":
-      showHelp();
-      break;
+  if (!raw) return;
 
-    case "status":
-      showStatus();
-      break;
+  const parts = raw.toLowerCase().split(" ");
 
-    case "log":
-      loadEntry(parts);
-      break;
-
-    default:
-      print(`ERROR: UNKNOWN COMMAND "${rawInput.toUpperCase()}"`);
-  }
-}
-
-/* =========================
-   COMMANDS
-   ========================= */
-
-function showHelp() {
-  print(`
-AVAILABLE COMMANDS:
-
-HELP
-STATUS
-LOG <TYPE> <NAME>
-
-EXAMPLES:
-LOG AGENT GABRIEL
-LOG ITEM ICHOR
-`);
-}
-
-function showStatus() {
-  print(`
-STATUS REPORT:
-
-SYSTEM INTEGRITY: STABLE
-CONNECTION: PARTIAL
-AVAILABLE ENTRIES: 3
-SECURITY LEVEL: RESTRICTED
-`);
-}
-
-/* =========================
-   ENTRY LOADER
-   ========================= */
-
-function loadEntry(parts) {
-  if (parts.length < 3) {
-    print("ERROR: INCOMPLETE COMMAND");
+  // EXPECTED: log (type) (name)
+  if (parts[0] !== "log" || parts.length < 3) {
+    print(`ERROR: INVALID COMMAND FORMAT\nEXPECTED: LOG (TYPE) (NAME)`);
     return;
   }
 
   const type = parts[1];
-  const name = parts[2];
+  const name = parts.slice(2).join("_"); // allows multi-word names if needed
 
-  const path = `entries/${type}/${name}`;
+  const path = `main/log/${type}/${name}.txt`;
 
-  fetch(path)
-    .then(response => {
-      if (!response.ok) throw new Error("Missing file");
-      return response.text();
-    })
-    .then(text => {
-      print(text);
-    })
-    .catch(() => {
-      print("ERROR: FILE UNAVAILABLE OR NONEXISTENT");
-    });
-}
+  try {
+    const res = await fetch(path);
 
-/* =========================
-   INPUT LISTENER
-   ========================= */
+    if (!res.ok) {
+      throw new Error("NOT_FOUND");
+    }
 
-input.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    const command = input.value;
-    input.value = "";
-    handleCommand(command);
+    const text = await res.text();
+    print(text.trim());
+
+  } catch (err) {
+    print(`ERROR: FILE UNAVAILABLE OR NONEXISTENT`);
   }
 });
-
-/* =========================
-   INITIAL MESSAGE
-   ========================= */
-
-print(`ACCESS_DATATERM ONLINE.
-TYPE HELP FOR AVAILABLE COMMANDS.
-`);
