@@ -1,1 +1,69 @@
-Lifeblood description
+ent_user: AUTO_DESCRIPTOR
+
+SUBJECT: ICHOR
+CLASSIFICATION: Liquid Cursed Object. Energy Storage Medium
+STATE: Stable (Controlled Conditions)
+
+Physical Description:
+Viscous liquid, density notably above water (≈1.36 g/cm³). Coloration observed as blue-green with internal luminescence. Emission wavelength fluctuates between 480–510 nm under low ambient light. Luminosity increases proportionally with cursed energy saturation. Substance exhibits faint self-agitation when uncontained.
+
+Odor negligible. Taste untested (see safety notes).
+
+Containment:
+Non-reactive glass, ceramic, or reinforced polymer vessels recommended. Metallic containers show gradual CE leakage (≈3–5% per 24 hours). When unsealed, Ichor begins passive energy dissipation after ~90 seconds.
+
+Cursed Energy Capacity:
+
+Average storage density: 4.6×10⁴ CE units per milliliter
+
+Maximum observed saturation before instability: 6.1×10⁴ CE units/mL
+
+Capacity varies slightly depending on source sample consistency
+
+For reference, 1 liter of Ichor can sustain a medium-scale barrier array for approximately 72–96 hours without external input.
+
+Energy Output:
+
+Passive output (idle): ~120 CE units/sec
+
+Active draw (laboratory systems): up to 3.2×10³ CE units/sec before structural degradation
+
+Output remains stable until volume depletion falls below 12%
+
+Unlike solid cursed objects, output curve is linear and predictable.
+
+Yield:
+Extraction efficiency averages 180–260 mL per subject, dependent on physiological factors and prior CE exposure. Yield loss during conversion process remains below 4%.
+
+Bulk processing significantly reduces spatial storage requirements compared to solid-object preservation methods.
+
+Longevity:
+
+Shelf life (sealed, inactive): Indefinite (no measurable decay over 140-year observation period)
+
+Active use lifespan: Dependent on draw rate
+
+Residual volume below 5% becomes inert and visually opaque
+
+Interaction Notes:
+
+Absorption through organic tissue results in immediate system integration & subject dissolution
+
+No rejection response observed in compatible hosts. Batch variance affects hazard level
+
+Quality contagion observed when batches cross contaminate
+
+Hazards:
+
+Prolonged proximity (>6 hours) may induce sympathetic CE influence
+
+Unregulated exposure correlates with identity bleed, memory echoing, and involuntary technique manifestation
+
+Direct contact prone to lead to bodily dissolution in the substance. Proceed with extreme caution.
+
+Corpse personnel rotation advised
+
+Remarks:
+Liquid state allows for modular storage, redistribution, and large-scale energy deployment without the logistical constraints of discrete cursed artifacts. High scalability. Highly efficient.
+
+Further classification pending. Proposed solute pending. See projects.
