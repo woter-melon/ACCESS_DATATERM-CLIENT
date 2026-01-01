@@ -1,4 +1,4 @@
-ent_user: AUTO_DESCRIPTOR
+ent_user: AUTOLAB_DESCRIPTOR
 
 SUBJECT: ICHOR
 CLASSIFICATION: Liquid Cursed Object. Energy Storage Medium
@@ -55,15 +55,17 @@ Quality contagion observed when batches cross contaminate
 
 Hazards:
 
-Prolonged proximity (>6 hours) may induce sympathetic CE influence
+Prolonged proximity (>6 hours) may induce sympathetic cursed energy response. Phenomenon inconclusive as of now.
 
-Unregulated exposure correlates with identity bleed, memory echoing, and involuntary technique manifestation
+Unregulated contact correlates with identity dissociation, manic episodes, involuntary memori callbacks, and involuntary technique manifestation.
 
 Direct contact prone to lead to bodily dissolution in the substance. Proceed with extreme caution.
 
-Corpse personnel rotation advised
+Corpse personnel rotation advised. Fully automatic personnel are unaffected by dissoluting properties.
 
 Remarks:
 Liquid state allows for modular storage, redistribution, and large-scale energy deployment without the logistical constraints of discrete cursed artifacts. High scalability. Highly efficient.
 
 Further classification pending. Proposed solute pending. See projects.
+
+Addendum: Ha. Told you dad. The puppets DO have a function. Maybe we can have a lab without robots that are weird half cursed energy flesh things next time. 
