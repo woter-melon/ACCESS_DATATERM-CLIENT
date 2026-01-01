@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ------------- HELP COMMAND ------------- */
     if (command === "help") {
-      typePrint("Honestly why'd I even put this command here. \n" + 
+      typePrint("Honestly why'd I even put this command here. \n\n" + 
                 "Note, delete later.\n\n\n\n" + 
                 "Wow, forgot this thing existed. Way to go help command. Happy 54th birthday."); // placeholder text
       return;
@@ -146,6 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
       typePrint("TERMINAL STATUS:\n" +
           "BATTERY: 2%. Charging...\n" +
           "FILE INTEGRITY: Critical. Hope I'm not reading this without a backup, or I'm gonna get a lecture.\n\n" +
+          "AVAILABLE ENTRIES: 16\n" +
           "CONNECTION STATUS:\n" +
           "Stable. 518 Kbps."); // placeholder text
       return;
