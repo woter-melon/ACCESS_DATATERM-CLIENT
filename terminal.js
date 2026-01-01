@@ -128,7 +128,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const text = await response.text();
         typePrint(text);
       } catch {
-        typePrint(`ERROR: LOG NOT FOUND\nPATH: ${path}`);
+        typePrint(`ERROR: LOG NOT FOUND\nPATH: ${path}
+        
+        Note for dad: if you're trying to find something, remember, don't put .txt at the end. The machine does it for you. And don't put spaces. The system can't tell them apart. If you're looking for someone, do firstname_lastname. Okay?`);
       }
       return;
     }
@@ -146,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
       typePrint("TERMINAL STATUS:\n" +
           "BATTERY: 2%. Charging...\n" +
           "FILE INTEGRITY: Critical. Hope I'm not reading this without a backup, or I'm gonna get a lecture.\n\n" +
-          "AVAILABLE ENTRIES: 16\n" +
+          "AVAILABLE ENTRIES: 18\n" +
           "CONNECTION STATUS:\n" +
           "Stable. 518 Kbps."); // placeholder text
       return;
