@@ -1,1 +1,3 @@
+ent_user: Gabriel
+
 Can't believe I lost the damned blade. 
