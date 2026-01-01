@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch {
         typePrint(`ERROR: LOG NOT FOUND\nPATH: ${path}
         
-        Note for dad: if you're trying to find something, remember, don't put .txt at the end. The machine does it for you. And don't put spaces. The system can't tell them apart. If you're looking for someone, do firstname_lastname. Okay?`);
+        Note for dad: if you're trying to find something, remember, don't put .txt at the end. The machine does it for you. And don't put spaces in names. The system can't tell them apart from the actual command, so use "_". If you're looking for someone, do "log agent firstname_lastname". Okay?`);
       }
       return;
     }
