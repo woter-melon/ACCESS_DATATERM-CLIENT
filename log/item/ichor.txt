@@ -66,7 +66,7 @@ Corpse personnel rotation advised. Fully automatic personnel are unaffected by d
 Remarks:
 Liquid state allows for modular storage, redistribution, and large-scale energy deployment without the logistical constraints of discrete cursed artifacts. High scalability. Highly efficient.
 
-Further classification pending. Proposed solute pending. See projects.
+Further classification pending. Proposed solute pending. See other/projects.txt.
 
 Addendum: Ha. Told you dad. The puppets DO have a function. Maybe we can have a lab without robots that are weird half cursed energy flesh things next time. 
 
