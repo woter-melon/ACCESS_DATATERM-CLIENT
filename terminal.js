@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const path = `log/${type}/${thing}.txt`;
+      const path = `log/${type}/${thing.toLowerCase()}.txt`; // Turns user input into lower case
       console.log("Fetching:", path);
 
       try {
