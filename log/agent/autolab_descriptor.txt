@@ -1,0 +1,13 @@
+ent_user: Chana
+
+AUTOLAB_DESCRIPTOR
+
+Addition to the operatin OS that makes it so I don't have to spend half of my time here just writing down stuff. 
+
+It was way more work than I expected, but I was commited to getting this to function without doing something crazy like trapping someone into a cursed corpse for a menial task. AGAIN.
+
+A value is assigned to words with units, and each unit is processed among different scales that help the system identify the word's subjective context in language. Then, they're made into text by an algorithm that predicts the next word bassed on that! It took SO MUCH to get this part down! But it's done!!!
+
+Feels a little odd to log this thing under 'agent', but I guess it's appropriate enough. I should still find a way to interface directly with the machines here. Or else the keyboard friction will wear down my fingers into pulp.
+
+Don't even know why I still log stuff. Dad doesn't even check anything. Wish I could shut this whole thing down.
