@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
       typePrint("TERMINAL STATUS:\n" +
           "BATTERY: 2%. Charging...\n" +
           "FILE INTEGRITY: Critical. Hope I'm not reading this without a backup, or I'm gonna get a lecture.\n\n" +
-          "AVAILABLE ENTRIES: 18\n" +
+          "AVAILABLE ENTRIES: 26\n" +
           "CONNECTION STATUS:\n" +
           "Stable. 518 Kbps."); // placeholder text
       return;
