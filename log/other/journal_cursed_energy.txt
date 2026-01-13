@@ -11,7 +11,7 @@ Entry 1: (Digitalization note: Chana) I need this stuff to survive. Gabriel (Dig
 
 Entry 2: (Digitalization note: Chana) A man has come into contact with dad. He says he's here to help. He gave me something wrapped in bandages. Maybe it'll help. It hurts a lot when I go hungry. 
 
-(Digitalization note: Journal entries lost. 1-27)
+(Digitalization note: Journal entries lost. 3-27)
 
 Entry 28: Advancement in development of cursed object creation is steady. Unwilling people can be turned, now. They behave differently, however. They are opposed to the procedure. 
 
@@ -30,7 +30,7 @@ Entry 67: I've escaped twice now. It's really different out there. People behave
 
 (Digitalization note: Journal entries lost. 68- 290)
 
-Entry 291: I knew bringing my journal when neakking out was a good idea. I met a girl today. 
+Entry 291: I knew bringing my journal when sneaking out was a good idea. I met a girl today. 
 
 (Digitalization note: Journal entries lost. 292-304) 
 
@@ -42,14 +42,16 @@ Entry 335: Ocular implants seem faulty lately. Repeated instances. I'll have to 
 
 (Digitalization note: Journal entries lost. 335-787) 
 
-Entry 688: Fuck. I still can't figure it out. Administering alcohol until unconsciousness helps, but it is ineffective and messy. An extract from seaweed worked pretty well. Methane Trichloryde. 67-66-3. It seemed painless. But I can't find enough, and father doesn't want to help. I can't keep doing this. I'm having nightmares. I don't even know why I'm trying this. It's stupid. I should just listen to dad and make the whole thing more efficient. I'm not even the same kind as them, right?
+Entry 788: Fuck. I still can't figure it out. Administering alcohol until unconsciousness helps, but it is ineffective and messy. An extract from seaweed worked pretty well. Methane Trichloryde. 67-66-3. It seemed painless. But I can't find enough, and father doesn't want to help. I can't keep doing this. I'm having nightmares. 
 
-(Digitalization note: Journal entries lost. 788-3144) 
+I don't even know why I'm trying this. It's stupid. I should just listen to dad and make the whole thing more efficient. I'm not even the same kind as them, right?
+
+(Digitalization note: Journal entries lost. 789-3144) 
 
 (Digitalization note: Severely compromised. Entry torn. Most pieces lost) 
 
-Digitalization note: Physical entries completed) 
+(Digitalization note: Physical entries completed) 
 
-entry_3145: Digitalization at last. Most of the entries actually elating to harvesting cursed energy are lost. I don't care at this point. Probably just gonna let dad or the Autolab handle the rest of the logging. I don't even care anymore. I just need cursed energy. I need to get someone. Anyone. I don't care who.
+entry_3145: Digitalization at last. Most of the entries actually relating to harvesting cursed energy are lost. I don't care at this point. Probably just gonna let dad or the Autolab handle the rest of the logging. I don't even care anymore. I just need cursed energy. I need to get someone. Anyone. I don't care who.
 
 AUTOLAB_Addendum: 284 days since last user: (Chana)'s login. Severe cursed energy absence. Self termination attempt log under: (ERRMAC_REDACTED).txt. Unsuccessful.
